@@ -1,0 +1,118 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Loan / EMI Calculator" description="Calculate your monthly loan payment (EMI), total interest, and see a full payment breakdown.">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-indigo-600 transition">Home</a>
+      <span>/</span>
+      <span class="text-gray-900 font-medium">Loan Calculator</span>
+    </nav>
+
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl text-3xl mb-4">🏦</div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Loan / EMI Calculator</h1>
+      <p class="text-gray-500 max-w-xl mx-auto">Calculate your monthly payment, total interest, and see how much you'll pay over the life of your loan.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Input Card -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Loan Details</h2>
+        <div class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Loan Amount</label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">$</span>
+              <input id="amount" type="number" value="250000" min="0" class="w-full pl-8 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-lg" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Annual Interest Rate (%)</label>
+            <div class="relative">
+              <input id="rate" type="number" value="6.5" min="0" step="0.1" class="w-full pl-4 pr-10 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-lg" />
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">%</span>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Loan Term (Years)</label>
+            <input id="term" type="number" value="30" min="1" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-lg" />
+          </div>
+          <button id="calc-btn" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all text-base">
+            Calculate
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Card -->
+      <div id="results" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 hidden">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Results</h2>
+        <div class="space-y-4">
+          <div class="bg-indigo-50 rounded-xl p-5 text-center">
+            <div class="text-sm text-indigo-600 font-medium mb-1">Monthly Payment (EMI)</div>
+            <div id="emi" class="text-3xl font-bold text-indigo-700"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+              <div class="text-xs text-gray-500 font-medium mb-1">Total Payment</div>
+              <div id="total" class="text-xl font-bold text-gray-900"></div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+              <div class="text-xs text-gray-500 font-medium mb-1">Total Interest</div>
+              <div id="interest" class="text-xl font-bold text-rose-600"></div>
+            </div>
+          </div>
+          <!-- Visual Breakdown -->
+          <div class="mt-4">
+            <div class="text-sm font-medium text-gray-700 mb-2">Payment Breakdown</div>
+            <div class="flex rounded-full overflow-hidden h-4">
+              <div id="bar-principal" class="bg-indigo-500 transition-all duration-500"></div>
+              <div id="bar-interest" class="bg-rose-400 transition-all duration-500"></div>
+            </div>
+            <div class="flex justify-between mt-2 text-xs text-gray-500">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 bg-indigo-500 rounded-full inline-block"></span> Principal</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 bg-rose-400 rounded-full inline-block"></span> Interest</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const fmt = (n: number) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  function calculate() {
+    const P = parseFloat((document.getElementById('amount') as HTMLInputElement).value) || 0;
+    const r = (parseFloat((document.getElementById('rate') as HTMLInputElement).value) || 0) / 100 / 12;
+    const n = (parseFloat((document.getElementById('term') as HTMLInputElement).value) || 0) * 12;
+
+    if (P <= 0 || n <= 0) return;
+
+    let emi: number;
+    if (r === 0) {
+      emi = P / n;
+    } else {
+      emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    }
+
+    const total = emi * n;
+    const interest = total - P;
+
+    document.getElementById('emi')!.textContent = fmt(emi);
+    document.getElementById('total')!.textContent = fmt(total);
+    document.getElementById('interest')!.textContent = fmt(interest);
+
+    const pPct = (P / total) * 100;
+    (document.getElementById('bar-principal') as HTMLElement).style.width = pPct + '%';
+    (document.getElementById('bar-interest') as HTMLElement).style.width = (100 - pPct) + '%';
+
+    document.getElementById('results')!.classList.remove('hidden');
+  }
+
+  document.getElementById('calc-btn')?.addEventListener('click', calculate);
+  calculate();
+</script>

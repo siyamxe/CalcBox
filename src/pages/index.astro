@@ -1,0 +1,285 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolCard from "../components/ToolCard.astro";
+
+const tools = [
+  {
+    category: "finance",
+    label: "💰 Finance",
+    items: [
+      {
+        title: "Loan Calculator",
+        description:
+          "Calculate monthly EMI, total interest, and payment breakdown for any loan.",
+        href: "/tools/loan-calculator",
+        icon: "🏦",
+        color: "emerald",
+      },
+      {
+        title: "Compound Interest",
+        description:
+          "See how your investments grow over time with compound interest.",
+        href: "/tools/compound-interest",
+        icon: "📈",
+        color: "indigo",
+      },
+      {
+        title: "Discount Calculator",
+        description:
+          "Find the final price after applying any discount percentage.",
+        href: "/tools/discount-calculator",
+        icon: "🏷️",
+        color: "rose",
+      },
+      {
+        title: "Tip Calculator",
+        description:
+          "Split bills and calculate tips easily among any group size.",
+        href: "/tools/tip-calculator",
+        icon: "🧾",
+        color: "amber",
+      },
+    ],
+  },
+  {
+    category: "health",
+    label: "❤️ Health",
+    items: [
+      {
+        title: "BMI Calculator",
+        description:
+          "Calculate your Body Mass Index and find your healthy weight range.",
+        href: "/tools/bmi-calculator",
+        icon: "⚖️",
+        color: "orange",
+      },
+      {
+        title: "Age Calculator",
+        description:
+          "Find your exact age in years, months, and days from your birthdate.",
+        href: "/tools/age-calculator",
+        icon: "🎂",
+        color: "purple",
+      },
+    ],
+  },
+  {
+    category: "math",
+    label: "🔢 Math",
+    items: [
+      {
+        title: "Percentage Calculator",
+        description:
+          "Solve any percentage problem: find percentages, increases, and decreases.",
+        href: "/tools/percentage-calculator",
+        icon: "%",
+        color: "blue",
+      },
+    ],
+  },
+  {
+    category: "converters",
+    label: "🔄 Converters",
+    items: [
+      {
+        title: "Unit Converter",
+        description:
+          "Convert between units of length, weight, temperature, area, and more.",
+        href: "/tools/unit-converter",
+        icon: "📐",
+        color: "teal",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="Free Online Calculators & Tools">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-800"></div>
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-30"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
+      <div class="text-center">
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
+          <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+          <span class="text-white/90 text-sm font-medium">
+            100% Free • No Sign-up
+          </span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+          Every Calculator
+          <br />
+          <span class="bg-gradient-to-r from-amber-200 to-yellow-200 bg-clip-text text-transparent">
+            You'll Ever Need
+          </span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-indigo-100 max-w-2xl mx-auto mb-10 leading-relaxed">
+          Fast, accurate online calculators for finance, health, math, and unit
+          conversions. Get instant results — no ads, no clutter.
+        </p>
+
+        <!-- Search -->
+        <div class="max-w-lg mx-auto relative">
+          <svg
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search tools... (e.g. loan, BMI, convert)"
+            class="w-full pl-12 pr-4 py-4 rounded-2xl bg-white/95 backdrop-blur text-gray-900 placeholder-gray-400 shadow-2xl shadow-indigo-900/30 border-0 focus:outline-none focus:ring-4 focus:ring-white/30 text-base"
+          />
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="flex justify-center gap-8 sm:gap-16 mt-12">
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-white">8+</div>
+            <div class="text-indigo-200 text-sm mt-1">Free Tools</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-white">100%</div>
+            <div class="text-indigo-200 text-sm mt-1">Accurate</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-white">0</div>
+            <div class="text-indigo-200 text-sm mt-1">Ads</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wave divider -->
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg
+        viewBox="0 0 1440 80"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-full"
+      >
+        <path
+          d="M0 80L60 73.3C120 66.7 240 53.3 360 48C480 42.7 600 45.3 720 50.7C840 56 960 64 1080 64C1200 64 1320 56 1380 52L1440 48V80H1380C1320 80 1200 80 1080 80C960 80 840 80 720 80C600 80 480 80 360 80C240 80 120 80 60 80H0Z"
+          fill="#F9FAFB"
+        />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Tools Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    {tools.map((group) => (
+      <div id={group.category} class="mb-16 last:mb-0 tool-category">
+        <div class="flex items-center gap-3 mb-8">
+          <h2 class="text-2xl font-bold text-gray-900">{group.label}</h2>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {group.items.map((tool) => (
+            <div
+              class="tool-card"
+              data-title={tool.title.toLowerCase()}
+              data-desc={tool.description.toLowerCase()}
+            >
+              <ToolCard {...tool} />
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <!-- No Results -->
+    <div id="no-results" class="hidden text-center py-16">
+      <div class="text-5xl mb-4">🔍</div>
+      <h3 class="text-xl font-semibold text-gray-700 mb-2">No tools found</h3>
+      <p class="text-gray-500">Try a different search term</p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-white border-t border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Why CalcBox?</h2>
+      <p class="text-gray-500 mb-12 max-w-2xl mx-auto">
+        Built for speed and accuracy. Every tool works instantly in your browser
+        with zero data collection.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <div class="p-6">
+          <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+            ⚡
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Instant Results</h3>
+          <p class="text-sm text-gray-500">
+            All calculations happen in your browser. No server round-trips, no
+            waiting.
+          </p>
+        </div>
+        <div class="p-6">
+          <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+            🔒
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">100% Private</h3>
+          <p class="text-sm text-gray-500">
+            Your data never leaves your device. No tracking, no cookies, no
+            analytics.
+          </p>
+        </div>
+        <div class="p-6">
+          <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+            📱
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Works Everywhere</h3>
+          <p class="text-sm text-gray-500">
+            Responsive design that works perfectly on desktop, tablet, and
+            mobile.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const input = document.getElementById("search-input") as HTMLInputElement;
+  const cards = document.querySelectorAll(".tool-card");
+  const categories = document.querySelectorAll(".tool-category");
+  const noResults = document.getElementById("no-results");
+
+  input?.addEventListener("input", () => {
+    const q = input.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const el = card as HTMLElement;
+      const title = el.dataset.title || "";
+      const desc = el.dataset.desc || "";
+      const match = !q || title.includes(q) || desc.includes(q);
+      el.style.display = match ? "" : "none";
+      if (match) visibleCount++;
+    });
+
+    categories.forEach((cat) => {
+      const el = cat as HTMLElement;
+      const hasVisible =
+        el.querySelectorAll('.tool-card:not([style*="display: none"])').length >
+        0;
+      el.style.display = hasVisible ? "" : "none";
+    });
+
+    if (noResults) noResults.style.display = visibleCount === 0 ? "" : "none";
+  });
+</script>

@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Percentage Calculator" description="Solve any percentage problem: find percentages, percentage change, increase, and decrease.">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+    <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-indigo-600 transition">Home</a>
+      <span>/</span>
+      <span class="text-gray-900 font-medium">Percentage Calculator</span>
+    </nav>
+
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl text-3xl mb-4">%</div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Percentage Calculator</h1>
+      <p class="text-gray-500 max-w-xl mx-auto">Solve any percentage problem with these three common calculators.</p>
+    </div>
+
+    <div class="space-y-6">
+      <!-- Calc 1: What is X% of Y? -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
+        <h2 class="text-base font-semibold text-gray-900 mb-4">What is X% of Y?</h2>
+        <div class="flex flex-wrap items-end gap-3">
+          <span class="text-gray-500 pb-3">What is</span>
+          <div class="w-24">
+            <input id="p1-pct" type="number" value="25" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-center focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+          </div>
+          <span class="text-gray-500 pb-3">% of</span>
+          <div class="w-32">
+            <input id="p1-val" type="number" value="200" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-center focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+          </div>
+          <button id="p1-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all">= ?</button>
+          <div id="p1-result" class="px-5 py-2.5 bg-indigo-50 rounded-xl font-bold text-indigo-700 hidden"></div>
+        </div>
+      </div>
+
+      <!-- Calc 2: X is what % of Y? -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
+        <h2 class="text-base font-semibold text-gray-900 mb-4">X is what % of Y?</h2>
+        <div class="flex flex-wrap items-end gap-3">
+          <div class="w-28">
+            <input id="p2-x" type="number" value="50" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-center focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+          </div>
+          <span class="text-gray-500 pb-3">is what % of</span>
+          <div class="w-28">
+            <input id="p2-y" type="number" value="200" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-center focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+          </div>
+          <button id="p2-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all">= ?</button>
+          <div id="p2-result" class="px-5 py-2.5 bg-indigo-50 rounded-xl font-bold text-indigo-700 hidden"></div>
+        </div>
+      </div>
+
+      <!-- Calc 3: % change from X to Y -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
+        <h2 class="text-base font-semibold text-gray-900 mb-4">Percentage Change</h2>
+        <div class="flex flex-wrap items-end gap-3">
+          <span class="text-gray-500 pb-3">From</span>
+          <div class="w-28">
+            <input id="p3-from" type="number" value="80" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-center focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+          </div>
+          <span class="text-gray-500 pb-3">to</span>
+          <div class="w-28">
+            <input id="p3-to" type="number" value="100" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-center focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+          </div>
+          <button id="p3-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all">= ?</button>
+          <div id="p3-result" class="px-5 py-2.5 rounded-xl font-bold hidden"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Calc 1
+  document.getElementById('p1-btn')?.addEventListener('click', () => {
+    const pct = parseFloat((document.getElementById('p1-pct') as HTMLInputElement).value) || 0;
+    const val = parseFloat((document.getElementById('p1-val') as HTMLInputElement).value) || 0;
+    const res = document.getElementById('p1-result')!;
+    res.textContent = (pct / 100 * val).toLocaleString('en-US', { maximumFractionDigits: 4 });
+    res.classList.remove('hidden');
+  });
+
+  // Calc 2
+  document.getElementById('p2-btn')?.addEventListener('click', () => {
+    const x = parseFloat((document.getElementById('p2-x') as HTMLInputElement).value) || 0;
+    const y = parseFloat((document.getElementById('p2-y') as HTMLInputElement).value) || 0;
+    const res = document.getElementById('p2-result')!;
+    res.textContent = y !== 0 ? (x / y * 100).toFixed(2) + '%' : 'N/A';
+    res.classList.remove('hidden');
+  });
+
+  // Calc 3
+  document.getElementById('p3-btn')?.addEventListener('click', () => {
+    const from = parseFloat((document.getElementById('p3-from') as HTMLInputElement).value) || 0;
+    const to = parseFloat((document.getElementById('p3-to') as HTMLInputElement).value) || 0;
+    const res = document.getElementById('p3-result')!;
+    if (from === 0) { res.textContent = 'N/A'; res.className = 'px-5 py-2.5 rounded-xl font-bold bg-gray-50 text-gray-700'; }
+    else {
+      const change = ((to - from) / Math.abs(from)) * 100;
+      const isUp = change >= 0;
+      res.textContent = (isUp ? '+' : '') + change.toFixed(2) + '%';
+      res.className = `px-5 py-2.5 rounded-xl font-bold ${isUp ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}`;
+    }
+    res.classList.remove('hidden');
+  });
+</script>
