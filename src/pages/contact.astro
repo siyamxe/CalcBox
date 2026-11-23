@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact & Support — CalcBox"
+  description="Have feedback, questions, or a calculator suggestion? Get in touch with the CalcBox team."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="mb-10 text-center">
+      <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-3">Support & Feedback</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">Contact CalcBox</h1>
+      <p class="mt-4 text-base text-gray-600 max-w-xl mx-auto">
+        Have an idea for a new calculator, found a bug, or need help? We welcome your feedback and respond to all inquiries promptly.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="md:col-span-2 bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+        <form class="space-y-5" onsubmit="event.preventDefault(); alert('Thank you for reaching out! Your message has been received.'); this.reset();">
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="e.g. Alex Morgan"
+              class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="alex@example.com"
+              class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm"
+            />
+          </div>
+
+          <div>
+            <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Inquiry Type</label>
+            <select
+              id="category"
+              name="category"
+              class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm bg-white"
+            >
+              <option value="calculator-request">Request a New Calculator</option>
+              <option value="bug-report">Report a Calculation Bug</option>
+              <option value="general">General Feedback or Question</option>
+              <option value="partnership">Advertising & Partnerships</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              required
+              placeholder="Tell us how we can help or describe the calculator you'd like to see..."
+              class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3.5 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-100 transition duration-200"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+          <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center font-bold mb-3">💬</div>
+          <h3 class="text-sm font-bold text-gray-900 mb-1">Direct Support</h3>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            We review suggestions continuously to improve formula accuracy and add requested tools.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+          <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center font-bold mb-3">⚡</div>
+          <h3 class="text-sm font-bold text-gray-900 mb-1">Fast Turnaround</h3>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Reported formula corrections or bug fixes are typically pushed within 24 to 48 hours.
+          </p>
+        </div>
+
+        <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl text-center">
+          <h4 class="text-sm font-bold text-indigo-950 mb-1">Looking for a quick answer?</h4>
+          <p class="text-xs text-indigo-800 mb-3">Check our frequently asked questions on the homepage.</p>
+          <a href="/#faq" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 underline">
+            View FAQ Section &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

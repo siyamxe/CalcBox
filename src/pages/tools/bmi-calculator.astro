@@ -1,8 +1,41 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const bmiFaqs = [
+  {
+    q: "What is a normal BMI for adults?",
+    a: "According to the World Health Organization (WHO), a normal BMI range for adults is between 18.5 and 24.9. A BMI below 18.5 is considered underweight, 25 to 29.9 is overweight, and 30 or higher is classified as obese."
+  },
+  {
+    q: "How is BMI calculated?",
+    a: "In the metric system, BMI = weight (kg) / [height (m)]². In imperial units, BMI = [weight (lbs) × 703] / [height (inches)]²."
+  },
+  {
+    q: "Is BMI accurate for athletes or bodybuilders?",
+    a: "BMI does not distinguish between muscle mass and adipose fat tissue. Because muscle is denser than fat, muscular athletes often fall into overweight or obese BMI categories despite having exceptional cardiovascular health and low body fat."
+  }
+];
+
+const bmiSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "BMI Calculator - CalcBox",
+  "url": "https://calcbox.siyamxe.workers.dev/tools/bmi-calculator",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "description": "Calculate your Body Mass Index (BMI) instantly using Metric or Imperial measurements."
+};
 ---
 
-<Layout title="BMI Calculator" description="Calculate your Body Mass Index and find out if you're in a healthy weight range.">
+<Layout
+  title="BMI Calculator — Free Body Mass Index & Healthy Weight Checker"
+  description="Calculate your Body Mass Index (BMI) instantly. Supports both Metric (kg/cm) and Imperial (lbs/ft) units with standard WHO weight classifications."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(bmiSchema)} />
+  </Fragment>
+
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
     <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
       <a href="/" class="hover:text-indigo-600 transition">Home</a>
@@ -16,7 +49,7 @@ import Layout from '../../layouts/Layout.astro';
       <p class="text-gray-500 max-w-xl mx-auto">Calculate your Body Mass Index to check if your weight is in a healthy range.</p>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 max-w-lg mx-auto">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 max-w-lg mx-auto mb-16">
       <!-- Unit Toggle -->
       <div class="flex bg-gray-100 rounded-xl p-1 mb-6">
         <button id="btn-metric" class="flex-1 py-2.5 text-sm font-semibold rounded-lg bg-white shadow text-indigo-600 transition-all">Metric (kg/cm)</button>
@@ -89,6 +122,49 @@ import Layout from '../../layouts/Layout.astro';
           <div class="flex items-center gap-2 p-2 rounded-lg bg-red-50 text-red-700"><span class="w-2.5 h-2.5 bg-red-400 rounded-full"></span> 30+: Obese</div>
         </div>
       </div>
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm space-y-8 text-gray-700 leading-relaxed mb-12">
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Understanding Body Mass Index (BMI)</h2>
+        <p>
+          Body Mass Index (BMI) is a screening metric that compares your weight to your height. Established by the World Health Organization (WHO), it serves as a baseline indicator to identify potential weight-related health risks for men and women across adulthood.
+        </p>
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 font-mono text-sm text-gray-800">
+          Metric: BMI = weight (kg) / [height (m)]²
+          <br />
+          Imperial: BMI = [weight (lbs) × 703] / [height (in)]²
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h3 class="text-xl font-bold text-gray-900">Clinical Limitations of BMI</h3>
+        <p class="text-sm text-gray-600">
+          While BMI is simple to calculate, it does not assess body fat percentage directly or account for individual body composition differences:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-sm text-gray-600">
+          <li><strong>Muscle Density:</strong> Lean muscle is denser than fat tissue, meaning highly trained athletes may register in overweight categories.</li>
+          <li><strong>Age Factors:</strong> Older adults naturally experience muscle atrophy and may carry more body fat than younger adults with the same BMI.</li>
+          <li><strong>Fat Distribution:</strong> Visceral abdominal fat carries higher cardiovascular risks than subcutaneous fat in other areas, which BMI cannot detect.</li>
+        </ul>
+      </section>
+
+      <!-- Tool FAQ -->
+      <section class="space-y-4 pt-4 border-t border-gray-100">
+        <h3 class="text-xl font-bold text-gray-900">Frequently Asked Questions</h3>
+        <div class="space-y-3">
+          {bmiFaqs.map(faq => (
+            <details class="group bg-gray-50 rounded-xl p-4 border border-gray-200/60">
+              <summary class="font-semibold text-gray-900 cursor-pointer flex justify-between items-center text-sm">
+                <span>{faq.q}</span>
+                <span class="text-indigo-600 group-open:rotate-180 transition">&darr;</span>
+              </summary>
+              <p class="mt-2 text-xs text-gray-600 leading-relaxed">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
     </div>
   </div>
 </Layout>

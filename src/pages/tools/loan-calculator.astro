@@ -1,8 +1,41 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const loanFaqs = [
+  {
+    q: "What is an EMI (Equated Monthly Installment)?",
+    a: "An EMI is a fixed payment amount made by a borrower to a lender at a specified date each calendar month. EMIs are applied to both interest and principal each month so that over a specified number of years, the loan is paid off in full."
+  },
+  {
+    q: "How is the loan EMI calculated?",
+    a: "The standard banking formula is: EMI = [P × R × (1+R)^N] / [(1+R)^N - 1], where P is Principal loan amount, R is monthly interest rate (annual rate divided by 12/100), and N is the total number of monthly installments."
+  },
+  {
+    q: "Does prepaying a loan reduce the total interest paid?",
+    a: "Yes. In most amortized loans, extra principal prepayments reduce the remaining principal balance immediately, which lowers the interest charged on subsequent monthly statements."
+  }
+];
+
+const loanSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Loan EMI Calculator - CalcBox",
+  "url": "https://calcbox.siyamxe.workers.dev/tools/loan-calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "description": "Free loan EMI calculator with instant monthly payment, principal vs interest amortization breakdown."
+};
 ---
 
-<Layout title="Loan / EMI Calculator" description="Calculate your monthly loan payment (EMI), total interest, and see a full payment breakdown.">
+<Layout
+  title="Loan / EMI Calculator — Free Monthly Payment Breakdown"
+  description="Calculate monthly loan payments (EMI), total interest, and principal breakdown for personal, auto, or mortgage loans. Fast, accurate, and 100% free."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(loanSchema)} />
+  </Fragment>
+
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
@@ -17,7 +50,7 @@ import Layout from '../../layouts/Layout.astro';
       <p class="text-gray-500 max-w-xl mx-auto">Calculate your monthly payment, total interest, and see how much you'll pay over the life of your loan.</p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
       <!-- Input Card -->
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
         <h2 class="text-lg font-semibold text-gray-900 mb-6">Loan Details</h2>
@@ -78,6 +111,52 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- SEO Content & Formula Explanation -->
+    <div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm space-y-8 text-gray-700 leading-relaxed mb-12">
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">How the Loan EMI Formula Works</h2>
+        <p>
+          An Equated Monthly Installment (EMI) represents the fixed payment amount a borrower pays to a financial institution each month. During the initial years of your loan, a larger proportion of each payment goes toward paying off accrued interest. As the principal reduces over time, a progressively greater percentage goes toward paying off the loan principal itself.
+        </p>
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 font-mono text-sm text-gray-800">
+          EMI = [P × R × (1+R)^N] / [(1+R)^N - 1]
+        </div>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-gray-600">
+          <li><strong>P (Principal):</strong> The total initial sum of money borrowed.</li>
+          <li><strong>R (Monthly Rate):</strong> The annual rate divided by 12 and converted to a decimal (e.g. 6.5% / 12 / 100 = 0.0054167).</li>
+          <li><strong>N (Tenure):</strong> The total number of monthly payments across the term (e.g. 30 years × 12 = 360 months).</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h3 class="text-xl font-bold text-gray-900">Tips for Lowering Total Interest Paid</h3>
+        <p class="text-sm text-gray-600">
+          To minimize the overall cost of borrowing, consider:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-sm text-gray-600">
+          <li><strong>Making Partial Prepayments:</strong> Adding an extra 10% to your monthly EMI directly chips away at your principal balance, shaving years off your mortgage.</li>
+          <li><strong>Opting for a Shorter Term:</strong> While a 15-year loan has a higher monthly payment than a 30-year loan, the total interest paid is typically more than 50% lower.</li>
+          <li><strong>Shopping for Competitive Rates:</strong> Even a 0.25% interest rate deduction makes an immense cumulative difference over multiple decades.</li>
+        </ul>
+      </section>
+
+      <!-- Tool FAQ -->
+      <section class="space-y-4 pt-4 border-t border-gray-100">
+        <h3 class="text-xl font-bold text-gray-900">Frequently Asked Questions</h3>
+        <div class="space-y-3">
+          {loanFaqs.map(faq => (
+            <details class="group bg-gray-50 rounded-xl p-4 border border-gray-200/60">
+              <summary class="font-semibold text-gray-900 cursor-pointer flex justify-between items-center text-sm">
+                <span>{faq.q}</span>
+                <span class="text-indigo-600 group-open:rotate-180 transition">&darr;</span>
+              </summary>
+              <p class="mt-2 text-xs text-gray-600 leading-relaxed">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
     </div>
   </div>
 </Layout>

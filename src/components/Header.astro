@@ -5,6 +5,8 @@ const navLinks = [
   { label: 'Health', href: '/#health' },
   { label: 'Math', href: '/#math' },
   { label: 'Converters', href: '/#converters' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
 ];
 ---
 
@@ -30,7 +32,7 @@ const navLinks = [
       <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-1">
         {navLinks.map(link => (
-          <a href={link.href} class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all">
+          <a href={link.href} class="px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all">
             {link.label}
           </a>
         ))}
@@ -60,5 +62,7 @@ const navLinks = [
 <script>
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
 </script>

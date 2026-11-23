@@ -1,7 +1,7 @@
 ---
 const currentYear = new Date().getFullYear();
-const categories = [
-  { label: 'Loan Calculator', href: '/tools/loan-calculator' },
+const toolLinks = [
+  { label: 'Loan Calculator (EMI)', href: '/tools/loan-calculator' },
   { label: 'BMI Calculator', href: '/tools/bmi-calculator' },
   { label: 'Compound Interest', href: '/tools/compound-interest' },
   { label: 'Percentage Calculator', href: '/tools/percentage-calculator' },
@@ -10,13 +10,21 @@ const categories = [
   { label: 'Tip Calculator', href: '/tools/tip-calculator' },
   { label: 'Discount Calculator', href: '/tools/discount-calculator' },
 ];
+
+const legalLinks = [
+  { label: 'About CalcBox', href: '/about' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms of Use', href: '/terms' },
+  { label: 'Contact & Support', href: '/contact' },
+  { label: 'Frequently Asked Questions', href: '/#faq' },
+];
 ---
 
-<footer class="bg-gray-900 text-gray-400 mt-auto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Brand -->
-      <div>
+<footer class="bg-gray-900 text-gray-400 mt-auto border-t border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <!-- Brand & Mission -->
+      <div class="md:col-span-1">
         <div class="flex items-center gap-2.5 mb-4">
           <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -24,34 +32,63 @@ const categories = [
               <line x1="8" y1="6" x2="16" y2="6"/>
             </svg>
           </div>
-          <span class="text-lg font-bold text-white">CalcBox</span>
+          <span class="text-xl font-bold text-white">CalcBox</span>
         </div>
-        <p class="text-sm leading-relaxed">Free online calculators and conversion tools. Fast, accurate, and no sign-up required.</p>
+        <p class="text-sm leading-relaxed text-gray-400 mb-4">
+          Free, fast, and 100% private online calculators and converters. All formulas run locally in your web browser with zero telemetry or data collection.
+        </p>
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-gray-800/80 rounded-full text-xs text-emerald-400">
+          <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+          Client-Side Processing Only
+        </div>
       </div>
 
-      <!-- Tools -->
+      <!-- Calculators Column 1 -->
       <div>
-        <h3 class="text-white font-semibold mb-4">Tools</h3>
-        <ul class="space-y-2">
-          {categories.slice(0, 4).map(item => (
-            <li><a href={item.href} class="text-sm hover:text-indigo-400 transition">{item.label}</a></li>
+        <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Calculators</h3>
+        <ul class="space-y-2.5">
+          {toolLinks.slice(0, 4).map(item => (
+            <li><a href={item.href} class="text-sm hover:text-indigo-400 transition-colors">{item.label}</a></li>
           ))}
         </ul>
       </div>
 
-      <!-- More Tools -->
+      <!-- Calculators Column 2 -->
       <div>
-        <h3 class="text-white font-semibold mb-4">More Tools</h3>
-        <ul class="space-y-2">
-          {categories.slice(4).map(item => (
-            <li><a href={item.href} class="text-sm hover:text-indigo-400 transition">{item.label}</a></li>
+        <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">More Utilities</h3>
+        <ul class="space-y-2.5">
+          {toolLinks.slice(4).map(item => (
+            <li><a href={item.href} class="text-sm hover:text-indigo-400 transition-colors">{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Legal & Company -->
+      <div>
+        <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Company & Legal</h3>
+        <ul class="space-y-2.5">
+          {legalLinks.map(item => (
+            <li><a href={item.href} class="text-sm hover:text-indigo-400 transition-colors">{item.label}</a></li>
           ))}
         </ul>
       </div>
     </div>
 
-    <div class="border-t border-gray-800 mt-10 pt-6 text-sm text-center">
+    <!-- Educational & Advisory Disclaimer -->
+    <div class="border-t border-gray-800 mt-12 pt-8 text-xs text-gray-500 leading-relaxed space-y-2">
+      <p>
+        <strong>Disclaimer:</strong> The calculators and tools on CalcBox are provided strictly for informational, planning, and educational purposes. Financial calculations (such as loan amortizations and compound interest projections) are estimates and do not constitute financial or investment advice. Health tools (such as Body Mass Index) are generalized statistical indicators and should not be used as medical advice or clinical diagnosis.
+      </p>
+    </div>
+
+    <div class="border-t border-gray-800/60 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
       <p>&copy; {currentYear} CalcBox. All rights reserved.</p>
+      <div class="flex gap-4 mt-3 sm:mt-0">
+        <a href="/privacy-policy" class="hover:text-gray-300 transition">Privacy</a>
+        <a href="/terms" class="hover:text-gray-300 transition">Terms</a>
+        <a href="/contact" class="hover:text-gray-300 transition">Contact</a>
+        <a href="/about" class="hover:text-gray-300 transition">About</a>
+      </div>
     </div>
   </div>
 </footer>

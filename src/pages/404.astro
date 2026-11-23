@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page Not Found (404) — CalcBox"
+  description="Sorry, the page or calculator you are looking for does not exist on CalcBox. Return to our homepage to browse all free calculators."
+>
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center">
+    <div class="inline-flex items-center justify-center w-20 h-20 bg-indigo-100 text-indigo-600 rounded-3xl text-4xl font-extrabold mb-6 shadow-inner">
+      404
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">
+      Calculator or Page Not Found
+    </h1>
+    <p class="text-base text-gray-600 max-w-md mx-auto mb-8 leading-relaxed">
+      The link you followed may be broken or the calculator page may have moved. Explore our popular tools below or return to the main dashboard.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-3 mb-10">
+      <a href="/" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl shadow-md shadow-indigo-100 transition">
+        &larr; Back to All Calculators
+      </a>
+      <a href="/about" class="px-6 py-3 bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 font-medium rounded-xl transition">
+        About CalcBox
+      </a>
+    </div>
+
+    <div class="pt-8 border-t border-gray-200/60 max-w-md mx-auto text-left">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Popular Calculators</h3>
+      <div class="grid grid-cols-2 gap-3 text-sm">
+        <a href="/tools/loan-calculator" class="p-2.5 rounded-lg bg-white border border-gray-100 hover:border-indigo-200 hover:text-indigo-600 transition flex items-center gap-2">
+          <span>🏦</span> Loan EMI
+        </a>
+        <a href="/tools/bmi-calculator" class="p-2.5 rounded-lg bg-white border border-gray-100 hover:border-indigo-200 hover:text-indigo-600 transition flex items-center gap-2">
+          <span>⚖️</span> BMI Health
+        </a>
+        <a href="/tools/compound-interest" class="p-2.5 rounded-lg bg-white border border-gray-100 hover:border-indigo-200 hover:text-indigo-600 transition flex items-center gap-2">
+          <span>📈</span> Interest
+        </a>
+        <a href="/tools/percentage-calculator" class="p-2.5 rounded-lg bg-white border border-gray-100 hover:border-indigo-200 hover:text-indigo-600 transition flex items-center gap-2">
+          <span>%</span> Percentage
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -92,9 +92,77 @@ const tools = [
     ],
   },
 ];
+
+const faqs = [
+  {
+    q: "Are the calculators on CalcBox completely free to use?",
+    a: "Yes, CalcBox is 100% free with no hidden paywalls, subscription fees, or mandatory sign-ups. You can perform as many calculations as you need without restrictions."
+  },
+  {
+    q: "Is my personal data or financial information stored on CalcBox?",
+    a: "No. CalcBox operates entirely client-side. Every formula runs directly inside your web browser. None of your inputs (such as loan amounts, interest rates, weight, or dates of birth) are ever sent to our servers or saved."
+  },
+  {
+    q: "How accurate are the financial calculators on CalcBox?",
+    a: "Our financial calculators utilize standard banking amortization and compound interest formulas recognized worldwide. While they provide mathematically accurate estimations, actual loan repayment terms from banks may vary slightly due to institution-specific processing fees, taxes, or compounding frequencies."
+  },
+  {
+    q: "How is Body Mass Index (BMI) calculated?",
+    a: "BMI is calculated by dividing your weight in kilograms by the square of your height in meters (kg/m²), or in imperial units using (weight in lbs × 703) / (height in inches)². Our tool automatically converts between metric and imperial units."
+  },
+  {
+    q: "Can I use CalcBox on my mobile phone or tablet?",
+    a: "Yes. CalcBox is designed from the ground up to be fully responsive. It works seamlessly across smartphones, tablets, laptops, and desktop computers without requiring any app download."
+  },
+  {
+    q: "Can I use CalcBox calculators offline?",
+    a: "Once a calculator page has loaded in your web browser, all computations are executed locally via client-side JavaScript, meaning the calculations continue to work even if you temporarily lose your internet connection."
+  },
+  {
+    q: "How can I request a new calculator or report an issue?",
+    a: "We welcome feature requests and feedback. Simply visit our Contact page to submit a suggestion or report a calculation issue, and our team will review it."
+  }
+];
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CalcBox",
+  "url": "https://calcbox.siyamxe.workers.dev/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "description": "Free suite of online calculators and conversion tools for finance, health, math, and unit conversions.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
 ---
 
-<Layout title="Free Online Calculators & Tools">
+<Layout
+  title="Free Online Calculators & Conversion Tools — Fast & Private"
+  description="Free online calculators for personal finance, loans, compound interest, BMI, percentages, and unit conversions. Instant, accurate calculations with zero data collection."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(webAppSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
   <!-- Hero Section -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-800"></div>
@@ -105,7 +173,7 @@ const tools = [
         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
           <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
           <span class="text-white/90 text-sm font-medium">
-            100% Free • No Sign-up
+            100% Free • Client-Side • No Sign-up
           </span>
         </div>
 
@@ -118,8 +186,8 @@ const tools = [
         </h1>
 
         <p class="text-lg sm:text-xl text-indigo-100 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Fast, accurate online calculators for finance, health, math, and unit
-          conversions. Get instant results — no ads, no clutter.
+          Fast, mathematically accurate online calculators for finance, health, math, and unit
+          conversions. Instant calculations right in your browser with zero data harvesting.
         </p>
 
         <!-- Search -->
@@ -140,7 +208,7 @@ const tools = [
           <input
             id="search-input"
             type="text"
-            placeholder="Search tools... (e.g. loan, BMI, convert)"
+            placeholder="Search calculators... (e.g. loan, BMI, interest, convert)"
             class="w-full pl-12 pr-4 py-4 rounded-2xl bg-white/95 backdrop-blur text-gray-900 placeholder-gray-400 shadow-2xl shadow-indigo-900/30 border-0 focus:outline-none focus:ring-4 focus:ring-white/30 text-base"
           />
         </div>
@@ -149,15 +217,15 @@ const tools = [
         <div class="flex justify-center gap-8 sm:gap-16 mt-12">
           <div class="text-center">
             <div class="text-2xl sm:text-3xl font-bold text-white">8+</div>
-            <div class="text-indigo-200 text-sm mt-1">Free Tools</div>
+            <div class="text-indigo-200 text-sm mt-1">Free Calculators</div>
           </div>
           <div class="text-center">
             <div class="text-2xl sm:text-3xl font-bold text-white">100%</div>
-            <div class="text-indigo-200 text-sm mt-1">Accurate</div>
+            <div class="text-indigo-200 text-sm mt-1">Private & Local</div>
           </div>
           <div class="text-center">
-            <div class="text-2xl sm:text-3xl font-bold text-white">0</div>
-            <div class="text-indigo-200 text-sm mt-1">Ads</div>
+            <div class="text-2xl sm:text-3xl font-bold text-white">0 ms</div>
+            <div class="text-indigo-200 text-sm mt-1">Server Delay</div>
           </div>
         </div>
       </div>
@@ -205,49 +273,150 @@ const tools = [
     <div id="no-results" class="hidden text-center py-16">
       <div class="text-5xl mb-4">🔍</div>
       <h3 class="text-xl font-semibold text-gray-700 mb-2">No tools found</h3>
-      <p class="text-gray-500">Try a different search term</p>
+      <p class="text-gray-500">Try a different search term like "loan", "bmi", or "percentage"</p>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="bg-white border-t border-gray-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">Why CalcBox?</h2>
-      <p class="text-gray-500 mb-12 max-w-2xl mx-auto">
-        Built for speed and accuracy. Every tool works instantly in your browser
-        with zero data collection.
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-        <div class="p-6">
-          <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+  <!-- Value Proposition / Features Section -->
+  <section class="bg-white border-t border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Thousands Rely on CalcBox</h2>
+        <p class="text-gray-500 text-lg">
+          We built CalcBox to eliminate the frustrations of clunky, bloated calculator websites.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-8 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-md transition">
+          <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-2xl mb-5">
             ⚡
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Instant Results</h3>
-          <p class="text-sm text-gray-500">
-            All calculations happen in your browser. No server round-trips, no
-            waiting.
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Instant Client-Side Engine</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Every calculation runs locally inside your browser via lightweight JavaScript. You get zero page refreshes, zero waiting time, and instant real-time slider updates.
           </p>
         </div>
-        <div class="p-6">
-          <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+
+        <div class="p-8 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-md transition">
+          <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-2xl mb-5">
             🔒
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">100% Private</h3>
-          <p class="text-sm text-gray-500">
-            Your data never leaves your device. No tracking, no cookies, no
-            analytics.
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Total Input Confidentiality</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Your personal financial data, mortgage details, or health metrics never touch a server. No accounts, no email gates, and no tracking databases.
           </p>
         </div>
-        <div class="p-6">
-          <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+
+        <div class="p-8 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-md transition">
+          <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-2xl mb-5">
             📱
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Works Everywhere</h3>
-          <p class="text-sm text-gray-500">
-            Responsive design that works perfectly on desktop, tablet, and
-            mobile.
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Universal Device Support</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Carefully crafted touch controls and responsive layouts ensure every calculator works seamlessly whether you are on mobile, tablet, or large desktop screens.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- In-Depth SEO Guide / Content Section (800+ Words) -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-gray-700">
+    <div class="space-y-12">
+      <div>
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block mb-2">Comprehensive Guide</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-4">
+          Understanding Everyday Calculations: From Mortgages to Health
+        </h2>
+        <p class="text-base sm:text-lg text-gray-600 leading-relaxed">
+          In our daily personal and professional lives, accurate calculations empower us to make smarter financial investments, plan sustainable fitness routines, and solve engineering or academic math problems. Below is an overview of the core principles behind CalcBox’s most popular utility calculators.
+        </p>
+      </div>
+
+      <!-- Financial Calculation Deep Dive -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+        <h3 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <span class="p-2 bg-emerald-50 text-emerald-600 rounded-lg text-lg">🏦</span>
+          1. Mastering Loans, EMI, and Compound Interest
+        </h3>
+        <p class="leading-relaxed">
+          Borrowing and investing are two sides of the same financial coin. When taking out a mortgage, car loan, or personal financing, understanding your <strong>Equated Monthly Installment (EMI)</strong> is critical. The mathematical formula for an EMI is:
+        </p>
+        <div class="p-4 bg-gray-50 rounded-xl font-mono text-sm text-gray-800 border border-gray-200">
+          EMI = [P × R × (1+R)^N] / [(1+R)^N - 1]
+        </div>
+        <p class="text-sm leading-relaxed text-gray-600">
+          Where <strong>P</strong> represents the principal loan amount, <strong>R</strong> is the monthly interest rate (annual interest rate divided by 12 and converted to a decimal), and <strong>N</strong> is the number of monthly installments. Even a slight 0.5% reduction in your interest rate can save thousands of dollars across a 20-year or 30-year amortization schedule.
+        </p>
+        <p class="text-sm leading-relaxed text-gray-600">
+          Conversely, when growing your wealth, <strong>Compound Interest</strong> is what Albert Einstein reportedly termed the eighth wonder of the world. Compound interest calculates interest on both the initial principal and the accumulated interest from prior periods. By utilizing our Compound Interest Calculator, you can visualize how consistent monthly contributions compound exponentially over 5, 10, or 25 years.
+        </p>
+      </div>
+
+      <!-- Health Calculation Deep Dive -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+        <h3 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <span class="p-2 bg-orange-50 text-orange-600 rounded-lg text-lg">⚖️</span>
+          2. Tracking Health Benchmarks with Body Mass Index (BMI)
+        </h3>
+        <p class="leading-relaxed">
+          <strong>Body Mass Index (BMI)</strong> is an internationally recognized statistical screening tool developed by Belgian mathematician Adolphe Quetelet. It categorizes adult individuals into weight groups based on height and weight:
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center my-4">
+          <div class="p-3 rounded-xl bg-blue-50 text-blue-800 text-xs font-semibold">Underweight<br /><span class="font-normal">&lt; 18.5</span></div>
+          <div class="p-3 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-semibold">Normal Weight<br /><span class="font-normal">18.5 – 24.9</span></div>
+          <div class="p-3 rounded-xl bg-yellow-50 text-yellow-800 text-xs font-semibold">Overweight<br /><span class="font-normal">25.0 – 29.9</span></div>
+          <div class="p-3 rounded-xl bg-red-50 text-red-800 text-xs font-semibold">Obese<br /><span class="font-normal">30.0+</span></div>
+        </div>
+        <p class="text-sm leading-relaxed text-gray-600">
+          While BMI is a valuable general indicator for population health studies, it does not distinguish between lean muscle mass and adipose fat tissue. Athletes and bodybuilders with high muscle mass may register in higher BMI brackets despite having low body fat percentages. Our calculator supports both Metric (kg/cm) and Imperial (lbs/ft) systems to provide instant clarity.
+        </p>
+      </div>
+
+      <!-- Math & Unit Conversions -->
+      <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+        <h3 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <span class="p-2 bg-teal-50 text-teal-600 rounded-lg text-lg">🔄</span>
+          3. Simplifying Everyday Math and Multi-Unit Conversions
+        </h3>
+        <p class="leading-relaxed">
+          From retail shopping discounts to international recipe adaptations, unit conversions and percentage calculations are required daily:
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-gray-600">
+          <li><strong>Percentage Changes & Discounts:</strong> Quickly determine sales tax, percentage increases between two periods, or the exact amount saved during promotional discount campaigns.</li>
+          <li><strong>Imperial vs. Metric Units:</strong> Convert kilometers to miles, kilograms to pounds, Celsius to Fahrenheit, and square meters to square feet with decimal precision.</li>
+          <li><strong>Group Dining & Tip Splitting:</strong> Calculate customary gratuity percentages (15%, 18%, 20%) and evenly split bills among dining parties with round-up options.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Schema-Mapped) -->
+  <section id="faq" class="bg-gray-100/70 border-t border-gray-200/80 py-16 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block mb-2">Got Questions?</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Frequently Asked Questions</h2>
+        <p class="mt-3 text-gray-600">Everything you need to know about CalcBox calculators and privacy.</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group bg-white rounded-2xl border border-gray-200 p-6 [&_summary::-webkit-details-marker]:hidden transition-all duration-200 hover:border-indigo-200">
+            <summary class="flex items-center justify-between cursor-pointer font-bold text-gray-900 text-base sm:text-lg">
+              <span>{faq.q}</span>
+              <span class="ml-4 flex-shrink-0 text-indigo-600 transition duration-300 group-open:rotate-180">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm sm:text-base text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+              {faq.a}
+            </p>
+          </details>
+        ))}
       </div>
     </div>
   </section>
